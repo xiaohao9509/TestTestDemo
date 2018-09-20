@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView zhaoxiang;
     private RecyclerView.OnScrollListener mListener;
     private ViewPager pager;
+    private View bottomBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,15 @@ public class MainActivity extends AppCompatActivity {
         zhangdan_txt = (TextView) findViewById(R.id.img_zhangdan_txt);
         tongxunlu = (ImageView) findViewById(R.id.tongxunlu);
         jiahao = (ImageView) findViewById(R.id.jiahao);
+        bottomBar = findViewById(R.id.bottomBar);
+
+        app_bar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                float offset = -verticalOffset * 1.0f / appBarLayout.getTotalScrollRange();
+                bottomBar.setTranslationY(bottomBar.getHeight() * offset);
+            }
+        });
 
         mListener = new RecyclerView.OnScrollListener() {
             @Override
